@@ -145,14 +145,14 @@ jobs:
               terraform validate
           terraform plan -out=tfplan
 
-          - name: Install TFLint
-            uses: terraform-linters/setup-tflint@v5
+      - name: Install TFLint
+        uses: terraform-linters/setup-tflint@v5
 
-          - name: Run TFLint
-            working-directory: infra/stacks/dev
-            run: |
-              tflint --init
-              tflint
+      - name: Run TFLint
+        working-directory: infra/stacks/dev
+        run: |
+          tflint --init
+          tflint
 
       - name: Terraform plan summary
         working-directory: infra/stacks/dev
