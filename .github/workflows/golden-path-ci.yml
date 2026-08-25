@@ -145,14 +145,14 @@ jobs:
               terraform validate
           terraform plan -out=tfplan
 
-          - name: Install TFLint
-            uses: terraform-linters/setup-tflint@v5
+      - name: Install TFLint
+        uses: terraform-linters/setup-tflint@v5
 
-          - name: Run TFLint
-            working-directory: infra/stacks/dev
-            run: |
-              tflint --init
-              tflint
+      - name: Run TFLint
+        working-directory: infra/stacks/dev
+        run: |
+          tflint --init
+          tflint
 
       - name: Terraform plan summary
         working-directory: infra/stacks/dev
@@ -219,7 +219,7 @@ jobs:
       - name: Terraform init with S3 backend
         working-directory: infra/stacks/dev
         run: |
-          terraform init -backend-config="key=todo-service/${{ github.repository_owner }}/dev/terraform.tfstate"
+          terraform init -reconfigure -backend-config="key=todo-service/${{ github.repository_owner }}/dev/terraform.tfstate"
 
       - name: Download Terraform plan artifact
         uses: actions/download-artifact@v4
